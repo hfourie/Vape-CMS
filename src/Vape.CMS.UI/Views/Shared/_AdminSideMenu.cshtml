@@ -1,0 +1,58 @@
+﻿<div class="sidebar" data-color="red" data-image="../assets/img/sidebar-1.jpg">
+    <!--
+    Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
+
+    Tip 2: you can also add an image using data-image tag
+    -->
+    <div class="logo">
+        <a href="http://www.creative-tim.com" class="simple-text">
+            @ViewBag.ApplicationTitle
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+            <li class="active">
+                <a href="@Url.Action("Dashboard", "Dashboard")">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dasboard</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action("Users", "Users")">
+                    <i class="material-icons">group</i>
+                    <p>Users</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action("Products", "Products")">
+                    <i class="material-icons">devices_other</i>
+                    <p>Products</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action("Categories", "Category")">
+                    <i class="material-icons">loyalty</i>
+                    <p>Categories</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action("Colors", "ProductOptions")">
+                    <i class="material-icons">brush</i>
+                    <p>Colors</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action("Nicotine", "ProductOptions")">
+                    <i class="material-icons">smoking_rooms</i>
+                    <p>Nicotine</p>
+                </a>
+            </li>
+            <li class="active">
+                <a href="@Url.Action("Sizes", "ProductOptions")">
+                    <i class="material-icons">photo_size_select_large</i>
+                    <p>Size</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+﻿body,html {
+    background-image:url(../img/Background.jpg);
+    background-size: cover;
+}
+
+.form-group.label-floating label.control-label, .form-group.label-placeholder label.control-label {
+    top: 10px;
+    font-size: 14px;
+    line-height: 1.42857;
+}
+
+.form-group.label-static label.control-label,
+.form-group.label-floating.is-focused label.control-label,
+.form-group.label-floating:not(.is-empty) label.control-label {
+    top: -10px;
+    left: 0;
+    font-size: 11px;
+    line-height: 1.07143;
+}
+
+.form-group {
+    padding-bottom: 10px;
+    margin: 0px !important;
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+

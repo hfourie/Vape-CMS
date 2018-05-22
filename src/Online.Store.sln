@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vape.CMS.UI", "Vape.CMS.UI\Vape.CMS.UI.csproj", "{7F4E48EF-18CD-453A-B564-1D320A52453D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vape.CMS.DAL", "Vape.CMS.DAL\Vape.CMS.DAL.csproj", "{18B32EF9-DC44-468C-A36F-51DE93605CAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F4E48EF-18CD-453A-B564-1D320A52453D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F4E48EF-18CD-453A-B564-1D320A52453D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F4E48EF-18CD-453A-B564-1D320A52453D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F4E48EF-18CD-453A-B564-1D320A52453D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18B32EF9-DC44-468C-A36F-51DE93605CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B32EF9-DC44-468C-A36F-51DE93605CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B32EF9-DC44-468C-A36F-51DE93605CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B32EF9-DC44-468C-A36F-51DE93605CAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {31252DD0-31FD-4FBC-BC78-AE3463DFDCBF}
+	EndGlobalSection
+EndGlobal

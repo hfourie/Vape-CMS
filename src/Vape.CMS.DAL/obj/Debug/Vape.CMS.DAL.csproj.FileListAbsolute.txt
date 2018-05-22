@@ -1,0 +1,27 @@
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.dll.config
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.dll
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.pdb
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\bin\Debug\MySql.Data.dll
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\bin\Debug\MySql.Data.xml
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.dll
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.pdb
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.dll.config
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.dll
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.pdb
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\bin\Debug\MySql.Data.dll
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\bin\Debug\MySql.Data.xml
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.csproj.CoreCompileInputs.cache
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.dll
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.pdb
+C:\Users\hfourie\Desktop\HARDUS\Projects\GitHub\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.csprojResolveAssemblyReference.cache
+C:\Users\Corné Botma\Desktop\Corné\Werk\Web development\Github\Online.Store\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.csprojResolveAssemblyReference.cache
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.dll.config
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.dll
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\bin\Debug\Vape.CMS.DAL.pdb
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\bin\Debug\MySql.Data.dll
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\bin\Debug\MySql.Data.xml
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.csprojResolveAssemblyReference.cache
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.dll
+C:\Users\Hardus\Desktop\projects\bitbucket\vape.cms\src\Vape.CMS.DAL\obj\Debug\Vape.CMS.DAL.pdb

@@ -1,0 +1,151 @@
+﻿@model Vape.CMS.DAL.Entities.Nicotine
+@{
+    ViewBag.Title = "Nicotine";
+}
+
+@Html.HiddenFor(m => m.NicotineId);
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">@ViewBag.Title</h4>
+                <p class="category">List of Nicotine</p>
+                <a class="material-icons tableAddBtn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    add_circle
+                </a>
+            </div>
+            <div class="card-content table-responsive">
+                <div class="collapse" id="collapseExample">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card gray">
+                                <div class="card-header" data-background-color="black">
+                                    <h4 class="title">Add Nicotine</h4>
+                                </div>
+                                <div class="card-content">
+
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-danger label-floating">
+                                                    @Html.LabelFor(model => model.NicotineStrength, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.NicotineStrength, new { @class = "form-control", type = "number" })
+                                                </div>
+                                            </div>
+
+                                            <button id="SaveNicotine" type="button" class="btn btn-danger pull-right">Save</button>
+                                            @Html.ActionLink("Cancel", "Nicotine", null, new { @class = "btn btn-danger pull-right" })
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="text-danger">
+                        <tr>
+                            <th>Nicotine Strength</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Nicotine in Vape.CMS.DAL.Functions.NicotineFunctions.GetAll())
+                        {
+                            <tr>
+                                <td>@Nicotine.NicotineStrength</td>
+                                <td>
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                            Actions
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a id="EditCategory" onclick="EditNicotine(@Nicotine.NicotineId);" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="material-icons">create</i>
+                                                    <p class="actionText">Edit</p>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="@Url.Action("DeleteNicotine", "ProductOptions", new { NicotineId = Nicotine.NicotineId })">
+                                                    <i class="material-icons">delete</i>
+                                                    <p class="actionText">Delete</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#SaveNicotine").on("click", function () {
+            SaveNicotine();
+        });
+    });
+
+    function SaveNicotine() {
+        var myData = {
+            NicotineId: $("#NicotineId").val(),
+            NicotineStrength: $("#NicotineStrength").val(),
+        }
+
+        console.log('Page Data', myData);
+
+        $.ajax({
+            url: '/ProductOptions/CreateUpdateNicotine',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function () {
+                console.log('redirect');
+                var url = '@Url.Action("Nicotine", "ProductOptions")';
+                window.location.href = url;
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
+            }
+        });
+    };
+
+    function EditNicotine(nicotineId) {
+
+        var myData = {
+            NicotineId: nicotineId,
+        }
+
+        $.ajax({
+            url: '/ProductOptions/GetNicotine',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                $("#NicotineId").val(result.NicotineId);
+                $("#NicotineStrength").val(result.NicotineStrength).trigger("change");
+
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
+            }
+        });
+    };
+
+</script>

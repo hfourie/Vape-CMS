@@ -1,0 +1,149 @@
+﻿@model Vape.CMS.DAL.Entities.Size
+@{
+    ViewBag.Title = "Size";
+}
+@Html.HiddenFor(m => m.SizeId);
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">@ViewBag.Title</h4>
+                <p class="category">List of sizes</p>
+                <a class="material-icons tableAddBtn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    add_circle
+                </a>
+            </div>
+            <div class="card-content table-responsive">
+                <div class="collapse" id="collapseExample">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card gray">
+                                <div class="card-header" data-background-color="black">
+                                    <h4 class="title">Add Size</h4>
+                                </div>
+                                <div class="card-content">
+
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-danger label-floating">
+                                                    @Html.LabelFor(model => model.SizeDesc, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.SizeDesc, new { @class = "form-control", type = "number" })
+                                                </div>
+                                            </div>
+
+                                            <button id="SaveSize" type="button" class="btn btn-danger pull-right">Save</button>
+                                            @Html.ActionLink("Cancel", "Size", null, new { @class = "btn btn-danger pull-right" })
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="text-danger">
+                        <tr>
+                            <th>Size</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Size in Vape.CMS.DAL.Functions.SizeFunctions.GetAll())
+                        {
+                            <tr>
+                                <td>@Size.SizeDesc</td>
+                                <td>
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                            Actions
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a id="EditCategory" onclick="EditSize(@Size.SizeId);" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="material-icons">create</i>
+                                                    <p class="actionText">Edit</p>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="@Url.Action("DeleteSize", "ProductOptions", new { SizeId = @Size.SizeId })">
+                                                    <i class="material-icons">delete</i>
+                                                    <p class="actionText">Delete</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#SaveSize").on("click", function () {
+            SaveSize();
+        });
+    });
+
+    function SaveSize() {
+        var myData = {
+            SizeId: $("#SizeId").val(),
+            SizeDesc: $("#SizeDesc").val(),
+        }
+
+        console.log('Page Data', myData);
+
+        $.ajax({
+            url: '/ProductOptions/CreateUpdateSize',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function () {
+                console.log('redirect');
+                var url = '@Url.Action("Sizes", "ProductOptions")';
+                window.location.href = url;
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
+            }
+        });
+    };
+
+    function EditSize(sizeId) {
+
+        var myData = {
+            SizeId: sizeId,
+        }
+
+        $.ajax({
+            url: '/ProductOptions/GetSize',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                $("#SizeId").val(result.SizeId);
+                $("#SizeDesc").val(result.SizeDesc).trigger("change");
+
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
+            }
+        });
+    };
+
+</script> 

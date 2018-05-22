@@ -1,0 +1,266 @@
+﻿@using System.Web.UI.WebControls
+@using Vape.CMS.DAL.Functions
+@model Vape.CMS.DAL.Entities.User
+@{
+    ViewBag.Title = "Users";
+}
+
+@Html.HiddenFor(m => m.ProfilePictureId)
+@Html.HiddenFor(m => m.UserId)
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">@ViewBag.Title</h4>
+                <p class="category">List of Users</p>
+                <a class="material-icons tableAddBtn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    add_circle
+                </a>
+            </div>
+            <div class="card-content table-responsive">
+                <div class="collapse" id="collapseExample">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card gray">
+                                <div class="card-header" data-background-color="black">
+                                    <h4 class="title">User Profile</h4>
+                                    <p class="category">Complete the profile</p>
+                                </div>
+                                <div class="card-content">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-offset-4">
+                                                <div class="picture-container">
+                                                    <div class="picture">
+                                                        <img src="~/assets/img/default-avatar.png" class="picture-src" id="UserProfilePicture" title="" alt="" />
+                                                        <input type="file" id="file" name="file" onchange="show(this)" />
+                                                    </div>
+                                                    <h6>Choose Your Profile Picture</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.Surname, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Surname, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control", type = "email" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group form-danger label-floating">
+                                                    @Html.LabelFor(model => model.RoleId, new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.RoleId,
+                             new SelectList(UserFunctions.GetUserRoles().Select
+                             (x => new KeyValuePair<int, string>(x.RoleId, x.RoleDiscription)), "Key", "Value"),
+                             new { @class = "form-control" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button id="SaveUser" type="button" class="btn btn-danger pull-right">Save</button>
+                                        @Html.ActionLink("Cancel", "Users", null, new { @class = "btn btn-danger pull-right" })
+                                        <div class="clearfix"></div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead class="text-danger">
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Last Active</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Vape.CMS.DAL.Functions.UserFunctions.GetAll())
+                        {
+                            <tr>
+                                <td>@user.Name @user.Surname</td>
+                                <td>@user.Email</td>
+                                <td>@user.LastActive.ToString("D")</td>
+                                <td>
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                            Actions
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a id="EditUser" onclick="EditUser(@user.UserId);" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="material-icons">create</i>
+                                                    <p class="actionText">Edit</p>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="@Url.Action("DeleteUserProfile", "Users", new { UserId = @user.UserId })">
+                                                    <i class="material-icons">delete</i>
+                                                    <p class="actionText">Delete</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#SaveUser").on("click", function () {
+            SaveUser();
+        });
+    });
+
+    function SaveUser() {
+        var myData = {
+            UserId: $("#UserId").val(),
+            ProfilePictureId: ($("#ProfilePictureId").val() === 0) ? null : $("#ProfilePictureId").val(),
+            RoleId: $("#RoleId").val(),
+            Name: $("#Name").val(),
+            Surname: $("#Surname").val(),
+            Email: $("#Email").val(),
+        }
+
+        $.ajax({
+            url: '/Users/CreateUpdateUserProfile',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function () {
+                console.log('redirect');
+                var url = '@Url.Action("Users", "Users")';
+                window.location.href = url;
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
+            }
+        });
+    };
+
+    function EditUser(userId) {
+
+        var myData = {
+            UserId: userId,
+        }
+
+        $.ajax({
+            url: '/Users/GetUser',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                console.log('Result', result);
+                $("#UserId").val(result.UserId);
+
+                $("#ProfilePictureId").val(result.ProfilePictureId).trigger("change");
+                
+                $("#UserProfilePicture").attr('src', '/File/GetFile?FileId=' + result.ProfilePictureId);
+                $("#UserProfilePicture").trigger("change");
+
+                $("#RoleId").val(result.RoleId).trigger("change");
+                $("#Name").val(result.Name).trigger("change");
+                $("#Surname").val(result.Surname).trigger("change");
+                $("#Email").val(result.Email).trigger("change");
+                $("#LastActive").val(result.LastActive).trigger("change");
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
+            }
+        });
+    };
+
+    function show(input) {
+        if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            filerdr.onload = function (e) {
+                $('#UserProfilePicture').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+        }
+
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#file").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+
+            $.ajax({
+                url: '/File/UploadFiles',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (result) {
+
+                    console.log('fileId', result[0]);
+
+                    /*
+                    Result is an array of File Id's
+                    As we are only uploading one file Id we can select the first index of the array
+                    */
+                    $("#ProfilePictureId").val(result[0]);
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        } else {
+            alert("FormData is not supported.");
+        }
+
+
+
+
+    }
+
+
+</script>

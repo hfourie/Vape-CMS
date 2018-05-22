@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{18B32EF9-DC44-468C-A36F-51DE93605CAF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vape.CMS.DAL</RootNamespace>
+    <AssemblyName>Vape.CMS.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.10.6.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.10.6\lib\net452\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database.cs" />
+    <Compile Include="DTO\NicotineSelectDto.cs" />
+    <Compile Include="DTO\ProductColorTieDto.cs" />
+    <Compile Include="DTO\ProductColorTieListDto.cs" />
+    <Compile Include="DTO\ProductMaintenanceDto.cs" />
+    <Compile Include="DTO\ColorsListDto.cs" />
+    <Compile Include="DTO\NicotineListDto.cs" />
+    <Compile Include="DTO\ProductNicotineTieListDto.cs" />
+    <Compile Include="DTO\ProductNicotineTieDto.cs" />
+    <Compile Include="DTO\ProductSizeTieDto.cs" />
+    <Compile Include="DTO\ProductSizeTieListDto.cs" />
+    <Compile Include="DTO\ProductsListDto.cs" />
+    <Compile Include="DTO\SizeListDto.cs" />
+    <Compile Include="DTO\SizeSelectDto.cs" />
+    <Compile Include="DTO\UserProfileDto.cs" />
+    <Compile Include="DTO\UserRoleDto.cs" />
+    <Compile Include="DTO\UsersListDto.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Color.cs" />
+    <Compile Include="Entities\File.cs" />
+    <Compile Include="DTO\LoginDto.cs" />
+    <Compile Include="Entities\Nicotine.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="DTO\RegisterDto.cs" />
+    <Compile Include="Entities\ProductColorTie.cs" />
+    <Compile Include="Entities\ProductNicotineTie.cs" />
+    <Compile Include="Entities\ProductSizeTie.cs" />
+    <Compile Include="Entities\Role.cs" />
+    <Compile Include="Entities\Roles.cs" />
+    <Compile Include="Entities\Size.cs" />
+    <Compile Include="Entities\UserProductRating.cs" />
+    <Compile Include="Entities\UserProductReview.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Functions\FileFunctions.cs" />
+    <Compile Include="Functions\HelperFunctions.cs" />
+    <Compile Include="Functions\SqlHelperFunctions.cs" />
+    <Compile Include="Functions\CategoryFunctions.cs" />
+    <Compile Include="Functions\ColorFunctions.cs" />
+    <Compile Include="Functions\NicotineFunctions.cs" />
+    <Compile Include="Functions\ProductFunctions.cs" />
+    <Compile Include="Functions\SizeFunctions.cs" />
+    <Compile Include="Functions\UserFunctions.cs" />
+    <Compile Include="DTO\ColorSelectDto.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="docs\MySqlCommand.xml" />
+    <Content Include="docs\MySqlCommandBuilder.xml" />
+    <Content Include="docs\MySqlConnection.xml" />
+    <Content Include="docs\MySqlConnectionStringBuilder.xml" />
+    <Content Include="docs\MySqlDataAdapter.xml" />
+    <Content Include="docs\MySqlDataReader.xml" />
+    <Content Include="docs\MySqlException.xml" />
+    <Content Include="docs\MySqlHelper.xml" />
+    <Content Include="docs\MySqlParameter.xml" />
+    <Content Include="docs\MySqlParameterCollection.xml" />
+    <Content Include="docs\MySqlTransaction.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helper\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

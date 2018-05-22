@@ -1,0 +1,292 @@
+﻿
+@using System.Web.UI.WebControls
+@using Vape.CMS.DAL.Functions
+@model Vape.CMS.DAL.Entities.Product
+
+@{
+    ViewBag.Title = "Products";
+}
+
+@Html.HiddenFor(m => m.ProductId)
+@*@Html.HiddenFor(m => m.ProductColorTieDto.ProductColorTieId)
+    @Html.HiddenFor(m => m.ProductNicotineTieDto.ProductNicotineTieId)
+    @Html.HiddenFor(m => m.ProductSizeTieDto.ProductSizeTieId)*@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header" data-background-color="red">
+                <h4 class="title">@ViewBag.Title</h4>
+                <p class="category">List of Products</p>
+                <a class="material-icons tableAddBtn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    add_circle
+                </a>
+            </div>
+            <div class="card-content table-responsive">
+
+                <div class="collapse" id="collapseExample">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card gray">
+                                <div class="card-header" data-background-color="black">
+                                    <h4 class="title">Add Product</h4>
+                                </div>
+                                <div class="card-content">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.CategoryId, new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.CategoryId,
+                                                    new SelectList(CategoryFunctions.GetAll().Select
+                                                    (x => new KeyValuePair<int?, string>(x.CategoryId, x.CategoryDesc)), "Key", "Value"),
+                                                    new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", type = "text" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.Amount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", type = "number" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.Discount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control", type = "number" })
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="form-group form-danger  label-floating">
+                                                    @Html.LabelFor(model => model.Description, new { @class = "control-label" })
+                                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", type = "text" })
+                                                </div>
+                                            </div>
+
+                                            <button id="SaveProduct" type="button" class="btn btn-danger pull-right">Save</button>
+                                            @Html.ActionLink("Cancel", "Products", null, new { @class = "btn btn-danger pull-right" })
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <table class="table">
+                    <thead class="text-danger">
+                        <tr>
+                            <th>Product</th>
+                            <th>Amount</th>
+                            <th>Discount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var Product in Vape.CMS.DAL.Functions.ProductFunctions.GetAll())
+                        {
+                            <tr>
+                                <td>@Product.Name</td>
+                                <td>@Product.Amount</td>
+                                <td>@Product.Discount</td>
+                                <td>
+                                    <div class="dropdown pull-right">
+                                        <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                            Actions
+                                            <b class="caret"></b>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a id="EditCategory" onclick="EditProduct(@Product.ProductId);" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                    <i class="material-icons">create</i>
+                                                    <p class="actionText">Edit</p>
+                                                </a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li>
+                                                <a href="@Url.Action("DeleteProduct", "Products", new { ProductGuId = Product.ProductId })">
+                                                    <i class="material-icons">delete</i>
+                                                    <p class="actionText">Delete</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#SaveProduct").on("click", function () {
+            SaveProduct();
+        });
+        //$("#SaveColor").on("click", function () {
+        //    SaveColor();
+        //});
+        //$("#SaveNicotine").on("click", function () {
+        //    SaveNicotine();
+        //});
+        //$("#SaveSize").on("click", function () {
+        //    SaveSize();
+        //});
+    });
+
+        function SaveProduct() {
+            var myData = {
+                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+                Name: $("#Name").val(),
+                Amount: $("#Amount").val(),
+                Discount: $("#Discount").val(),
+                Description: $("#Description").val(),
+                CategoryId: $("#CategoryId").val()
+            }
+
+            $.ajax({
+                url: '/Products/CreateUpdateProducts',
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(myData),
+                success: function (result) {
+                    window.location.reload();
+                },
+                error: function (err) {
+                    console.log('err');
+                    alert(err.statusText);
+                }
+            });
+        };
+
+        function EditProduct(productId) {
+
+            var myData = {
+                ProductId: productId,
+            }
+
+            $.ajax({
+                url: '/Products/GetProduct',
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(myData),
+                success: function (result) {
+                    $("#ProductId").val(result.ProductId),
+                    $("#Name").val(result.Name).trigger("change"),
+                    $("#Amount").val(result.Amount).trigger("change"),
+                    $("#Discount").val(result.Discount).trigger("change"),
+                    $("#Description").val(result.Description).trigger("change"),
+                    $("#CategoryId").val(result.CategoryId).trigger("change")
+                },
+                error: function (err) {
+                    console.log('err');
+                    alert(err.statusText);
+                }
+            });
+        };
+
+        function SaveColor() {
+            var myData = {
+                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+                ColorId: ($("#ProductColorTieDto_ColorId").val() === 0) ? null : $("#ProductColorTieDto_ColorId").val(),
+                ColorAmount: $("#ProductColorTieDto_ColorAmount").val(),
+                ColorDiscount: $("#ProductColorTieDto_ColorDiscount").val(),
+                ColorStock: $("#ProductColorTieDto_ColorStock").val()
+            }
+
+            console.log('Page Data', myData);
+
+            $.ajax({
+                url: '/Products/CreateUpdateProductColor',
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(myData),
+                success: function (result) {
+                    $("#ColorId").val(result);
+                },
+                error: function (err) {
+                    console.log('err');
+                    alert(err.statusText);
+                }
+            });
+        };
+
+
+        function SaveNicotine() {
+            var myData = {
+                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+                NicotineId: ($("#ProductNicotineTieDto_NicotineId").val() === 0) ? null : $("#ProductNicotineTieDto_NicotineId").val(),
+                NicotineAmount: $("#ProductNicotineTieDto_NicotineAmount").val(),
+                NicotineDiscount: $("#ProductNicotineTieDto_NicotineDiscount").val(),
+                NicotineStock: $("#ProductNicotineTieDto_NicotineStock").val()
+            }
+
+            console.log('Page Data', myData);
+
+            $.ajax({
+                url: '/Products/CreateUpdateProductNicotine',
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(myData),
+                success: function (result) {
+                    $("#NicotineId").val(result);
+                },
+                error: function (err) {
+                    console.log('err');
+                    alert(err.statusText);
+                }
+            });
+        };
+
+        function SaveSize() {
+            var myData = {
+                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+                SizeId: ($("#ProductSizeTieDto_SizeId").val() === 0) ? null : $("#ProductSizeTieDto_SizeId").val(),
+                SizeAmount: $("#ProductSizeTieDto_SizeAmount").val(),
+                SizeDiscount: $("#ProductSizeTieDto_SizeDiscount").val(),
+                SizeStock: $("#ProductSizeTieDto_SizeStock").val()
+            }
+
+            console.log('Page Data', myData);
+
+            $.ajax({
+                url: '/Products/CreateUpdateProductSize',
+                type: 'POST',
+                dataType: "json",
+                contentType: 'application/json',
+                data: JSON.stringify(myData),
+                success: function (result) {
+                    $("#SizeId").val(result);
+                },
+                error: function (err) {
+                    console.log('err');
+                    alert(err.statusText);
+                }
+            });
+        };
+
+</script>
+
+
+
+
+
