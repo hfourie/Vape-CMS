@@ -56,7 +56,7 @@
     <Compile Include="DTO\NicotineSelectDto.cs" />
     <Compile Include="DTO\ProductColorTieDto.cs" />
     <Compile Include="DTO\ProductColorTieListDto.cs" />
-    <Compile Include="DTO\ProductMaintenanceDto.cs" />
+    <Compile Include="DTO\ProductDto.cs" />
     <Compile Include="DTO\ColorsListDto.cs" />
     <Compile Include="DTO\NicotineListDto.cs" />
     <Compile Include="DTO\ProductNicotineTieListDto.cs" />

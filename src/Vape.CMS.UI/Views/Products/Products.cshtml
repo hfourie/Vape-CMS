@@ -1,13 +1,13 @@
 ﻿
 @using System.Web.UI.WebControls
 @using Vape.CMS.DAL.Functions
-@model Vape.CMS.DAL.Entities.Product
+@model Vape.CMS.DAL.DTO.ProductDto
 
 @{
     ViewBag.Title = "Products";
 }
 
-@Html.HiddenFor(m => m.ProductId)
+@Html.HiddenFor(m => m.Product.ProductId)
 @*@Html.HiddenFor(m => m.ProductColorTieDto.ProductColorTieId)
     @Html.HiddenFor(m => m.ProductNicotineTieDto.ProductNicotineTieId)
     @Html.HiddenFor(m => m.ProductSizeTieDto.ProductSizeTieId)*@
@@ -16,67 +16,359 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header" data-background-color="red">
+
                 <h4 class="title">@ViewBag.Title</h4>
                 <p class="category">List of Products</p>
+                <div class="input-group col-md-4" id="searchBox">
+                    <input type="text" class="form-control filter" placeholder="Search" />
+                </div>
                 <a class="material-icons tableAddBtn" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                     add_circle
                 </a>
+
             </div>
             <div class="card-content table-responsive">
-
                 <div class="collapse" id="collapseExample">
-
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card gray">
+                            <div class="card gray card-nav-tabs">
                                 <div class="card-header" data-background-color="black">
-                                    <h4 class="title">Add Product</h4>
+                                    <div class="nav-tabs-navigation">
+                                        <div class="nav-tabs-wrapper">
+                                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                                <li class="active">
+                                                    <a href="#product" data-toggle="tab">
+                                                        <i class="material-icons">devices_other</i> Product
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="#Colors" data-toggle="tab">
+                                                        <i class="material-icons">brush</i> Product Colors
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="#Sizes" data-toggle="tab">
+                                                        <i class="material-icons">photo_size_select_large</i> Product Sizes
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a href="#Nicotine" data-toggle="tab">
+                                                        <i class="material-icons">smoking_rooms</i> Product Nicotine Strength
+                                                        <div class="ripple-container"></div>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="card-content">
-                                    <form>
-                                        <div class="row">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="product">
                                             <div class="col-md-3">
                                                 <div class="form-group form-danger  label-floating">
-                                                    @Html.LabelFor(model => model.CategoryId, new { @class = "control-label" })
-                                                    @Html.DropDownListFor(m => m.CategoryId,
-                                                    new SelectList(CategoryFunctions.GetAll().Select
-                                                    (x => new KeyValuePair<int?, string>(x.CategoryId, x.CategoryDesc)), "Key", "Value"),
-                                                    new { @class = "form-control" })
+                                                    @Html.LabelFor(model => model.Product.CategoryId, new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.Product.CategoryId,
+                                                                        new SelectList(CategoryFunctions.GetAll().Select
+                                                                        (x => new KeyValuePair<int?, string>(x.CategoryId, x.CategoryDesc)), "Key", "Value"),
+                                                                        new { @class = "form-control" })
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group form-danger  label-floating">
-                                                    @Html.LabelFor(model => model.Name, new { @class = "control-label" })
-                                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control", type = "text" })
+                                                    @Html.LabelFor(model => model.Product.Name, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Product.Name, new { @class = "form-control", type = "text" })
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group form-danger  label-floating">
-                                                    @Html.LabelFor(model => model.Amount, new { @class = "control-label" })
-                                                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", type = "number" })
+                                                    @Html.LabelFor(model => model.Product.Amount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Product.Amount, new { @class = "form-control", type = "number" })
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <div class="form-group form-danger  label-floating">
-                                                    @Html.LabelFor(model => model.Discount, new { @class = "control-label" })
-                                                    @Html.TextBoxFor(model => model.Discount, new { @class = "form-control", type = "number" })
+                                                    @Html.LabelFor(model => model.Product.Discount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.Product.Discount, new { @class = "form-control", type = "number" })
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
                                                 <div class="form-group form-danger  label-floating">
-                                                    @Html.LabelFor(model => model.Description, new { @class = "control-label" })
-                                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", type = "text" })
+                                                    @Html.LabelFor(model => model.Product.Description, new { @class = "control-label" })
+                                                    @Html.TextAreaFor(model => model.Product.Description, new { @class = "form-control", type = "text" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane active" id="Colors">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductColorTie.ColorId, new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.ProductColorTie.ColorId,
+                                                                   new SelectList(ColorFunctions.GetAll().Select
+                                                                   (x => new KeyValuePair<int?, string>(x.ColorId, x.ColorDesc)), "Key", "Value"),
+                                                                   new { @class = "form-control" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductColorTie.ColorAmount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductColorTie.ColorAmount, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductColorTie.ColorDiscount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductColorTie.ColorDiscount, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductColorTie.ColorStock, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductColorTie.ColorStock, new { @class = "form-control", type = "number" })
+                                                    <span class="material-input"></span>
                                                 </div>
                                             </div>
 
-                                            <button id="SaveProduct" type="button" class="btn btn-danger pull-right">Save</button>
+                                            <button id="SaveColor" type="button" class="btn btn-danger pull-right">Save</button>
                                             @Html.ActionLink("Cancel", "Products", null, new { @class = "btn btn-danger pull-right" })
                                             <div class="clearfix"></div>
+
+                                            <div class="card-content table-responsive">
+                                                <table class="table">
+                                                    <thead class="text-danger">
+                                                        <tr>
+                                                            <th>Color</th>
+                                                            <th>Amout</th>
+                                                            <th>Discount</th>
+                                                            <th>Stock</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var productColors in Vape.CMS.DAL.Functions.ProductFunctions.GetAllProductColors())
+                                                        {
+                                                            <tr>
+                                                                <td>@productColors.Color</td>
+                                                                <td>@productColors.ColorAmount</td>
+                                                                <td>@productColors.ColorDiscount</td>
+                                                                <td>@productColors.ColorStock</td>
+                                                                @*<td>@Html.ActionLink("cached", "UserMaintenance", new {userGuid = @Model.UserGuid}, new {@class = "material-icons"})</td>*@
+                                                                <td>
+                                                                    <div class="dropdown">
+                                                                        <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                                                            Actions
+                                                                            <b class="caret"></b>
+                                                                        </a>
+                                                                        @*<ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a href="@Url.Action("UserMaintenance", "Users", new { userGuid = @user.UserGuid })">
+                                                                                        <i class="material-icons">create</i>
+                                                                                        <p class="actionText">Edit</p>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="divider"></li>
+                                                                                <li>
+                                                                                    <a href="@Url.Action("DeleteUserProfile", "Users", new { userGuid = @user.UserGuid})">
+                                                                                        <i class="material-icons">delete</i>
+                                                                                        <p class="actionText">Delete</p>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>*@
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
                                         </div>
-                                    </form>
+                                        <div class="tab-pane" id="Sizes">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductSizeTie.SizeId, new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.ProductSizeTie.SizeId,
+                                                         new SelectList(SizeFunctions.GetAll().Select
+                                                         (x => new KeyValuePair<int?, int>(x.SizeId, x.SizeDesc)), "Key", "Value"),
+                                                         new { @class = "form-control" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductSizeTie.SizeAmount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductSizeTie.SizeAmount, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductSizeTie.SizeDiscount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductSizeTie.SizeDiscount, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductSizeTie.SizeStock, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductSizeTie.SizeStock, new { @class = "form-control", type = "number" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+
+                                            <button id="SaveSize" type="button" class="btn btn-danger pull-right">Save</button>
+                                            @Html.ActionLink("Cancel", "Products", null, new { @class = "btn btn-danger pull-right" })
+                                            <div class="clearfix"></div>
+
+                                            <div class="card-content table-responsive">
+                                                <table class="table">
+                                                    <thead class="text-danger">
+                                                        <tr>
+                                                            <th>Size</th>
+                                                            <th>Amout</th>
+                                                            <th>Discount</th>
+                                                            <th>Stock</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var productSizes in Vape.CMS.DAL.Functions.ProductFunctions.GetAllProductSizes())
+                                                        {
+                                                            <tr>
+                                                                <td>@productSizes.Size</td>
+                                                                <td>@productSizes.SizeAmount</td>
+                                                                <td>@productSizes.SizeDiscount</td>
+                                                                <td>@productSizes.SizeStock</td>
+                                                                <td>
+                                                                    <div class="dropdown">
+                                                                        <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                                                            Actions
+                                                                            <b class="caret"></b>
+                                                                        </a>
+                                                                        @*<ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a href="@Url.Action("UserMaintenance", "Users", new { userGuid = @user.UserGuid })">
+                                                                                        <i class="material-icons">create</i>
+                                                                                        <p class="actionText">Edit</p>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="divider"></li>
+                                                                                <li>
+                                                                                    <a href="@Url.Action("DeleteUserProfile", "Users", new { userGuid = @user.UserGuid})">
+                                                                                        <i class="material-icons">delete</i>
+                                                                                        <p class="actionText">Delete</p>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>*@
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="Nicotine">
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductNicotineTie.NicotineId, new { @class = "control-label" })
+                                                    @Html.DropDownListFor(m => m.ProductNicotineTie.NicotineId,
+                                                         new SelectList(NicotineFunctions.GetAll().Select
+                                                         (x => new KeyValuePair<int?, double>(x.NicotineId, x.NicotineStrength)), "Key", "Value"),
+                                                         new { @class = "form-control" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductNicotineTie.NicotineAmount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductNicotineTie.NicotineAmount, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductNicotineTie.NicotineDiscount, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductNicotineTie.NicotineDiscount, new { @class = "form-control", type = "text" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group label-floating">
+                                                    @Html.LabelFor(model => model.ProductNicotineTie.NicotineStock, new { @class = "control-label" })
+                                                    @Html.TextBoxFor(model => model.ProductNicotineTie.NicotineStock, new { @class = "form-control", type = "number" })
+                                                    <span class="material-input"></span>
+                                                </div>
+                                            </div>
+
+                                            <button id="SaveNicotine" type="button" class="btn btn-danger pull-right">Save</button>
+                                            @Html.ActionLink("Cancel", "Products", null, new { @class = "btn btn-danger pull-right" })
+                                            <div class="clearfix"></div>
+
+                                            <div class="card-content table-responsive">
+                                                <table class="table">
+                                                    <thead class="text-danger">
+                                                        <tr>
+                                                            <th>Nicotine</th>
+                                                            <th>Amout</th>
+                                                            <th>Discount</th>
+                                                            <th>Stock</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var productNicotine in Vape.CMS.DAL.Functions.ProductFunctions.GetAllProductNicotine())
+                                                        {
+                                                            <tr>
+                                                                <td>@productNicotine.Nicotine</td>
+                                                                <td>@productNicotine.NicotineAmount</td>
+                                                                <td>@productNicotine.NicotineDiscount</td>
+                                                                <td>@productNicotine.NicotineStock</td>
+                                                                <td>
+                                                                    <div class="dropdown">
+                                                                        <a href="#" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
+                                                                            Actions
+                                                                            <b class="caret"></b>
+                                                                        </a>
+                                                                        @*<ul class="dropdown-menu">
+                                                                                <li>
+                                                                                    <a href="@Url.Action("UserMaintenance", "Users", new { userGuid = @user.UserGuid })">
+                                                                                        <i class="material-icons">create</i>
+                                                                                        <p class="actionText">Edit</p>
+                                                                                    </a>
+                                                                                </li>
+                                                                                <li class="divider"></li>
+                                                                                <li>
+                                                                                    <a href="@Url.Action("DeleteUserProfile", "Users", new { userGuid = @user.UserGuid})">
+                                                                                        <i class="material-icons">delete</i>
+                                                                                        <p class="actionText">Delete</p>
+                                                                                    </a>
+                                                                                </li>
+                                                                            </ul>*@
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <button id="SaveProduct" type="button" class="btn btn-danger pull-right">Save</button>
+                        @Html.ActionLink("Cancel", "Products", null, new { @class = "btn btn-danger pull-right" })
+                        <div class="clearfix"></div>
                     </div>
                 </div>
 
@@ -149,140 +441,140 @@
         //});
     });
 
-        function SaveProduct() {
-            var myData = {
-                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
-                Name: $("#Name").val(),
-                Amount: $("#Amount").val(),
-                Discount: $("#Discount").val(),
-                Description: $("#Description").val(),
-                CategoryId: $("#CategoryId").val()
+    function SaveProduct() {
+        var myData = {
+            ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+            Name: $("#Name").val(),
+            Amount: $("#Amount").val(),
+            Discount: $("#Discount").val(),
+            Description: $("#Description").val(),
+            CategoryId: $("#CategoryId").val()
+        }
+
+        $.ajax({
+            url: '/Products/CreateUpdateProducts',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                window.location.reload();
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
             }
+        });
+    };
 
-            $.ajax({
-                url: '/Products/CreateUpdateProducts',
-                type: 'POST',
-                dataType: "json",
-                contentType: 'application/json',
-                data: JSON.stringify(myData),
-                success: function (result) {
-                    window.location.reload();
-                },
-                error: function (err) {
-                    console.log('err');
-                    alert(err.statusText);
-                }
-            });
-        };
+    function EditProduct(productId) {
 
-        function EditProduct(productId) {
+        var myData = {
+            ProductId: productId,
+        }
 
-            var myData = {
-                ProductId: productId,
-            }
-
-            $.ajax({
-                url: '/Products/GetProduct',
-                type: 'POST',
-                dataType: "json",
-                contentType: 'application/json',
-                data: JSON.stringify(myData),
-                success: function (result) {
-                    $("#ProductId").val(result.ProductId),
+        $.ajax({
+            url: '/Products/GetProduct',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                $("#ProductId").val(result.ProductId),
                     $("#Name").val(result.Name).trigger("change"),
                     $("#Amount").val(result.Amount).trigger("change"),
                     $("#Discount").val(result.Discount).trigger("change"),
                     $("#Description").val(result.Description).trigger("change"),
                     $("#CategoryId").val(result.CategoryId).trigger("change")
-                },
-                error: function (err) {
-                    console.log('err');
-                    alert(err.statusText);
-                }
-            });
-        };
-
-        function SaveColor() {
-            var myData = {
-                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
-                ColorId: ($("#ProductColorTieDto_ColorId").val() === 0) ? null : $("#ProductColorTieDto_ColorId").val(),
-                ColorAmount: $("#ProductColorTieDto_ColorAmount").val(),
-                ColorDiscount: $("#ProductColorTieDto_ColorDiscount").val(),
-                ColorStock: $("#ProductColorTieDto_ColorStock").val()
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
             }
+        });
+    };
 
-            console.log('Page Data', myData);
+    function SaveColor() {
+        var myData = {
+            ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+            ColorId: ($("#ProductColorTieDto_ColorId").val() === 0) ? null : $("#ProductColorTieDto_ColorId").val(),
+            ColorAmount: $("#ProductColorTieDto_ColorAmount").val(),
+            ColorDiscount: $("#ProductColorTieDto_ColorDiscount").val(),
+            ColorStock: $("#ProductColorTieDto_ColorStock").val()
+        }
 
-            $.ajax({
-                url: '/Products/CreateUpdateProductColor',
-                type: 'POST',
-                dataType: "json",
-                contentType: 'application/json',
-                data: JSON.stringify(myData),
-                success: function (result) {
-                    $("#ColorId").val(result);
-                },
-                error: function (err) {
-                    console.log('err');
-                    alert(err.statusText);
-                }
-            });
-        };
+        console.log('Page Data', myData);
 
-
-        function SaveNicotine() {
-            var myData = {
-                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
-                NicotineId: ($("#ProductNicotineTieDto_NicotineId").val() === 0) ? null : $("#ProductNicotineTieDto_NicotineId").val(),
-                NicotineAmount: $("#ProductNicotineTieDto_NicotineAmount").val(),
-                NicotineDiscount: $("#ProductNicotineTieDto_NicotineDiscount").val(),
-                NicotineStock: $("#ProductNicotineTieDto_NicotineStock").val()
+        $.ajax({
+            url: '/Products/CreateUpdateProductColor',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                $("#ColorId").val(result);
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
             }
+        });
+    };
 
-            console.log('Page Data', myData);
 
-            $.ajax({
-                url: '/Products/CreateUpdateProductNicotine',
-                type: 'POST',
-                dataType: "json",
-                contentType: 'application/json',
-                data: JSON.stringify(myData),
-                success: function (result) {
-                    $("#NicotineId").val(result);
-                },
-                error: function (err) {
-                    console.log('err');
-                    alert(err.statusText);
-                }
-            });
-        };
+    function SaveNicotine() {
+        var myData = {
+            ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+            NicotineId: ($("#ProductNicotineTieDto_NicotineId").val() === 0) ? null : $("#ProductNicotineTieDto_NicotineId").val(),
+            NicotineAmount: $("#ProductNicotineTieDto_NicotineAmount").val(),
+            NicotineDiscount: $("#ProductNicotineTieDto_NicotineDiscount").val(),
+            NicotineStock: $("#ProductNicotineTieDto_NicotineStock").val()
+        }
 
-        function SaveSize() {
-            var myData = {
-                ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
-                SizeId: ($("#ProductSizeTieDto_SizeId").val() === 0) ? null : $("#ProductSizeTieDto_SizeId").val(),
-                SizeAmount: $("#ProductSizeTieDto_SizeAmount").val(),
-                SizeDiscount: $("#ProductSizeTieDto_SizeDiscount").val(),
-                SizeStock: $("#ProductSizeTieDto_SizeStock").val()
+        console.log('Page Data', myData);
+
+        $.ajax({
+            url: '/Products/CreateUpdateProductNicotine',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                $("#NicotineId").val(result);
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
             }
+        });
+    };
 
-            console.log('Page Data', myData);
+    function SaveSize() {
+        var myData = {
+            ProductId: ($("#ProductId").val() === 0) ? null : $("#ProductId").val(),
+            SizeId: ($("#ProductSizeTieDto_SizeId").val() === 0) ? null : $("#ProductSizeTieDto_SizeId").val(),
+            SizeAmount: $("#ProductSizeTieDto_SizeAmount").val(),
+            SizeDiscount: $("#ProductSizeTieDto_SizeDiscount").val(),
+            SizeStock: $("#ProductSizeTieDto_SizeStock").val()
+        }
 
-            $.ajax({
-                url: '/Products/CreateUpdateProductSize',
-                type: 'POST',
-                dataType: "json",
-                contentType: 'application/json',
-                data: JSON.stringify(myData),
-                success: function (result) {
-                    $("#SizeId").val(result);
-                },
-                error: function (err) {
-                    console.log('err');
-                    alert(err.statusText);
-                }
-            });
-        };
+        console.log('Page Data', myData);
+
+        $.ajax({
+            url: '/Products/CreateUpdateProductSize',
+            type: 'POST',
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(myData),
+            success: function (result) {
+                $("#SizeId").val(result);
+            },
+            error: function (err) {
+                console.log('err');
+                alert(err.statusText);
+            }
+        });
+    };
 
 </script>
 

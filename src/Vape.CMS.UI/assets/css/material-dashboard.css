@@ -6846,3 +6846,8 @@ footer .btn {
     width: 100%;
 }
 
+#searchBox {
+    margin: -70px auto 0px auto;
+    height: 30px !important;
+}
+
